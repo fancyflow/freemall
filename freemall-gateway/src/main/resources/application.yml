@@ -1,0 +1,82 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: coupon_route
+          uri: lb://freemall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: member_route
+          uri: lb://freemall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: product_route
+          uri: lb://freemall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: third_party_route
+          uri: lb://freemall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*), /$\{segment}
+
+        - id: ware_route
+          uri: lb://freemall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /renren-fast/$\{segment}
+
+        - id: freemall_host_route
+          uri: lb://freemall-product
+          predicates:
+            - Host=freemall.com, item.freemall.com
+
+        - id: freemall_search_route
+          uri: lb://freemall-search
+          predicates:
+            - Host=search.freemall.com
+
+        - id: freemall_authentication_route
+          uri: lb://freemall-authentication
+          predicates:
+            - Host=auth.freemall.com
+
+        - id: freemall_cart_route
+          uri: lb://freemall-cart
+          predicates:
+            - Host=cart.freemall.com
+
+        - id: freemall_order_route
+          uri: lb://freemall-order
+          predicates:
+            - Host=order.freemall.com
+
+        - id: freemall_seckill_route
+          uri: lb://freemall-seckill
+          predicates:
+            - Host=seckill.freemall.com
+  application:
+    name: freemall-gateway
+server:
+  port: 88

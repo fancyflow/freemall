@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alicloud:
+      access-key:
+      secret-key:
+      oss:
+        endpoint:
+      sms:
+        host:
+        path:
+        appcode:
+        sign:
+        template:
+    util:
+      enabled: false
+  application:
+    name: freemall-third-party
+server:
+  port: 30000
